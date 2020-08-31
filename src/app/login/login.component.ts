@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {WebService} from '../core/services/uku/web.service';
+import {LoginWebService} from '../core/services/uku/web/login.web.service';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private webService: WebService) {
+    private loginWebService: LoginWebService) {
       this.loginForm =  this.formBuilder.group({
         "username": ["", Validators.required],
         "password": ["", Validators.required],
@@ -35,14 +35,14 @@ export class LoginComponent implements OnInit {
   }
 
   getCaptcha(){
-    this.webService.captcha().subscribe(res => {
+    this.loginWebService.captcha().subscribe(res => {
       this.createImageFromBlob(res);
     });
   }
 
   onLogin(event: Event) {
     event.preventDefault();
-    this.webService.login(this.loginForm.value).subscribe(res => {
+    this.loginWebService.login(this.loginForm.value).subscribe(res => {
       console.log('Login result ', res);
       if(res.success && res.data === "/main"){
         this.router.navigate(['/home'])

@@ -1,8 +1,32 @@
 <div class="container">
   <h1 class="title">
-    HOME
+    UKU Scraper
   </h1>
 
-  <a routerLink="/login">Back</a>
+  <div class="row">
+    <div class="col-md-6">
+      <label>Data Category</label>
+      <select class="form-control" [(ngModel)]="dataCategory">
+        <ng-container *ngFor="let category of dataCategories">
+          <option value="{{category.value}}">{{category.label}}</option>
+        </ng-container>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>Product</label>
+      <select class="form-control" [(ngModel)]="product">
+        <ng-container *ngFor="let product of products">
+          <option>{{product}}</option>
+        </ng-container>
+      </select>
+    </div>
+  </div>
+
+  <div class="alert alert-warning" *ngIf="message">
+    {{ message }}
+  </div>
+
+  <button class="btn btn-primary">Download</button>
+
 
 </div>
