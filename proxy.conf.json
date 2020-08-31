@@ -6,5 +6,38 @@
     "/captcha":{
         "target": "https://collection.ukuindo.com/",
         "secure": false
-    }
+    },
+    "/colCase": {
+        "target": "https://collection.ukuindo.com/",
+        "secure": false
+    },
+    "/colEmergencyContact": {
+        "target": "https://collection.ukuindo.com/",
+        "secure": false
+    },
+    "/colRecord": {
+        "target": "https://collection.ukuindo.com/",
+        "secure": false
+    },
+    "/colReplayFlow":{
+        "target": "https://collection.ukuindo.com/",
+        "secure": false
+    },
+    "/colAllotTrack": {
+        "target": "https://collection.ukuindo.com/",
+        "secure": false
+    },
+    "/customerPicture": {
+        "target": "https://collection.ukuindo.com/",
+        "secure": false
+    },
+    "/paidOff": {
+        "target": "https://collection.ukuindo.com/",
+        "secure": false
+    },
+    "/caseDetail": {
+        "target": "https://collection.ukuindo.com/",
+        "secure": false
+    },
+
 }
