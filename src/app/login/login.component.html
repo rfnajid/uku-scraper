@@ -1,0 +1,29 @@
+<div class="container">
+  <h1 class="title">
+    UKU
+  </h1>
+
+  <form [formGroup]="loginForm" (submit)="onLogin($event)">
+    <div class="form-group">
+      <label>Username</label>
+      <input required formControlName="username" type="text" class="form-control" placeholder="Username">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input required formControlName="password" type="password" class="form-control" name="password" placeholder="Password">
+    </div>
+    <div class="form-group">
+      <label>Verification Code</label>
+      <img class="captcha"  [src]="captcha">
+    </div>
+    <div class="form-group">
+      <input required formControlName="captcha" type="text" class="form-control" name="captcha"  placeholder="Verification Code">
+    </div>
+
+    <div class="alert alert-danger" *ngIf="message.error">
+      {{ message.message }}
+    </div>
+
+    <input [disabled]="!loginForm.valid" type="submit" class="btn btn-primary"/>
+  </form>
+</div>

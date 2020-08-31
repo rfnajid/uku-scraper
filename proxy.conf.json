@@ -1,0 +1,10 @@
+{
+    "/login": {
+        "target": "https://collection.ukuindo.com/",
+        "secure": false
+    },
+    "/captcha":{
+        "target": "https://collection.ukuindo.com/",
+        "secure": false
+    }
+}
