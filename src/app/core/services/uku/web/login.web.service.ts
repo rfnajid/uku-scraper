@@ -1,25 +1,28 @@
 import { Injectable } from '@angular/core';
-import { LoginModel} from '../../model/login.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Login} from '../../../model/login.model';
+import { LoginResponse } from '../../../model/response/login.response.model';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {WebService} from './web.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WebService {
 
-  BASE_URL = '/';
+export class LoginWebService extends WebService{
+
   LOGIN_URL = this.BASE_URL + 'login?language=en_US';
   CAPTCHA_URL = this.BASE_URL + 'captcha';
 
   constructor(private http: HttpClient) {
+    super();
   }
 
   captcha(): Observable<Blob>{
     return this.http.get(this.CAPTCHA_URL,  { responseType: 'blob'});
   }
 
-  login(data: LoginModel): Observable<any>{
+  login(data: Login): Observable<LoginResponse>{
     console.log('Login : ',data);
 
     const body = new URLSearchParams();
@@ -27,13 +30,6 @@ export class WebService {
     body.set('password',data.password);
     body.set('captcha', data.captcha);
 
-    const options = {
-      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    }
-
-    return this.http.post(this.LOGIN_URL, body.toString(), options);
+    return this.http.post<LoginResponse>(this.LOGIN_URL, body.toString(), this.formUrlOptions);
   }
-
-
-
 }
