@@ -35,4 +35,8 @@ export class CollectionWebService extends WebService implements CaseWebService{
     throw new Error("Method not implemented.");
   }
 
+  getContoh(): Observable<any[]> {
+    return this.http.get<any[]>('https://run.mocky.io/v3/e00cf9d5-0b70-43b9-80fd-65b2e74f6b68');
+  }
+
 }

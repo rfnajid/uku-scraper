@@ -1,4 +1,4 @@
-.progress-container {
+.progress-container, .done-container{
     margin: 0;
     position: absolute;
     top: 45%;
@@ -7,8 +7,14 @@
     width: 75%;
 }
 
+.done-container, .done-container > * {
+    margin: 15px;
+    text-align: center;
+}
+
 .progress-title, .progress-label{
     margin: 15px;
     display: flex;
     justify-content: center;
 }
+
