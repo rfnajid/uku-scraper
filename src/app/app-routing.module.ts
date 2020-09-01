@@ -4,20 +4,25 @@ import { PageNotFoundComponent } from './shared/components';
 
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { DownloadComponent } from './download/download.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'signin',
+    redirectTo: 'page-login',
     pathMatch: 'full'
   },
   {
-    path: 'signin',
+    path: 'page-login',
     component: LoginComponent
   },
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'download',
+    component: DownloadComponent
   },
   {
     path: '**',

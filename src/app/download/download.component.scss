@@ -1,0 +1,14 @@
+.progress-container {
+    margin: 0;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+}
+
+.progress-title, .progress-label{
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+}

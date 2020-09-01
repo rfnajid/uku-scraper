@@ -19,6 +19,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { DownloadComponent} from './download/download.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -26,7 +27,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HomeComponent,
+    DownloadComponent
+  ],
   imports: [
     CommonModule,
     BrowserModule,

@@ -38,6 +38,5 @@
     "/caseDetail": {
         "target": "https://collection.ukuindo.com/",
         "secure": false
-    },
-
+    }
 }

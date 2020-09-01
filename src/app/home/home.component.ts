@@ -29,6 +29,8 @@ export class HomeComponent implements OnInit {
     this.getTotalCase();
   }
 
+  // view related functions
+
   setMessage(message: string){
     this.message = message;
   }
@@ -36,6 +38,25 @@ export class HomeComponent implements OnInit {
   clearMessage(){
     this.message = '';
   }
+
+  download(){
+    this.router.navigate(['/download']);
+  }
+
+  // bind related function
+
+  onChangeDataCategory(dataCategory){
+    this.dataCategory = dataCategory;
+    this.getTotalCase();
+  }
+
+  onChangeProduct(product){
+    this.product = product;
+    this.getTotalCase();
+  }
+
+
+  // service related function
 
   getTotalCase(){
 
