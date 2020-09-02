@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CollectionWebService } from 'app/core/services/uku/web/collection.web.service';
 import { PaymentWebService } from 'app/core/services/uku/web/payment.web.service';
+import { TemplateService } from 'app/core/services/uku/util/template.service';
 import { FileService } from 'app/core/services/uku/util/file.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class DownloadComponent implements OnInit {
     private router: Router,
     private collectionWebService: CollectionWebService,
     private paymentWebService: PaymentWebService,
+    private templateService: TemplateService,
     private fileService: FileService) {
   }
 
@@ -40,19 +42,19 @@ export class DownloadComponent implements OnInit {
       const path = 'percobaan/'+list[i].id+'-'+list[i].kata;
       this.fileService.mkdir(path);
 
-      await this.write(path + '/file.json');
+      const html = this.templateService.get({'TES':list[i],"tes 2":list[i]});
+
+      await this.write(path + '/index.html', html);
       this.calculateProgress(i+1);
     };
 
     this.done = true;
   }
 
-  async write(path: string){
+  async write(path: string, data:string){
     this.message = 'downloading... '+path;
-    const result = await this.collectionWebService.getContoh().toPromise().then( res => {
-      return new Promise(resolve => setTimeout(() => resolve(res), 10));
-    });
-    this.fileService.writeFile(path, JSON.stringify(result));
+    await new Promise(resolve => setTimeout(() => resolve(), 10));
+    this.fileService.writeFile(path, data);
     console.log('write : ', path);
   }
 

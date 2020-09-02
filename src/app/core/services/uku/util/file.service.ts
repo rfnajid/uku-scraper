@@ -3,7 +3,6 @@ import { app } from "electron";
 import { ElectronService} from '../../electron/electron.service';
 
 import * as fs from 'fs';
-import { relative } from "path";
 
 @Injectable({
     providedIn: 'root'
