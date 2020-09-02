@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Template } from 'app/core/model';
 
 
 @Injectable({
@@ -11,10 +12,10 @@ export class TemplateService {
 
     }
 
-    get (data: any) : string {
+    get (template: Template) : string {
         let html = '<!DOCTYPE html><html>';
         html += this.head();
-        html += this.body(data);
+        html += this.body(template);
         return html;
     }
 
@@ -34,32 +35,38 @@ export class TemplateService {
             padding: 10px;\
         }\
         .label {\
-            background: #d4d7dd;\
+            background: rgba(0,0,0,.05);\
         }\
         .value {\
-            background: #f6f6f6;\
+            background: #ffffff;\
         }\
         .label, .value{\
             border-bottom: 1px solid #111111;\
         }\
+        img{\
+            width:300px;\
+        }\
         </style>';
     }
 
-    private body(data): string{
+    private body(template: Template): string{
         let body = '<body>';
         body += '<div class="container-fluid">';
 
-        Object.entries(data).forEach(
-            ([key, value]) => {
-                body += this.content(key,value);
-        });
+        body += this.contentObject('Detail',template.detail);
+        body += this.contentObject('Case', template.case);
+        body += this.contentArray('Contact', template.contacts);
+        body += this.contentArray('Collection Records', template.collectionRecords);
+        body += this.contentArray('Payment Records ', template.paymentRecords);
+        body += this.contentArray('Collection Path', template.colelctionPaths);
+        body += this.contentImages('Pictures', template.pictures);
 
         body+='</body>';
 
         return body;
     }
 
-    private content(title, data): string{
+    private contentObject(title: string, data:): string{
         let content = '<h3>'+title+'</h3>';
 
         console.log('template -> content -> title', title);
@@ -74,6 +81,50 @@ export class TemplateService {
         content += '</div>';
 
       return content;
+    }
+
+    private contentArray(title: string, data: any[]){
+        let content = '<h3>'+title+'</h3>';
+
+        console.log('template -> content -> title', title);
+        console.log('template -> content -> data', data);
+
+        if(data.length<=0){
+            content += '<h5>No Data</h5>';
+        }else {
+            content += '<table class="table table-striped">';
+            content += '<thead>';
+            content += '<tr>';
+            Object.entries(data[0]).forEach(
+                ([key, value]) => {
+                    content += '<th scope="col">'+ key +'</th>';
+            });
+            content += '</tr></thead>';
+            content += '<tbody>';
+
+            data.forEach(element => {
+                content += '<tr>';
+                Object.entries(element).forEach(
+                    ([key, value]) => {
+                        content += '<td>' + value +'</td>';
+                });
+                content += '</tr>';
+            });
+            content += '</tbody></table>';
+        }
+
+        return content;
+    }
+
+    private contentImages(title: string, data: String[]){
+        let content = '<h3>'+ title + '</h3>';
+
+        console.log('template -> content -> title', title);
+        console.log('template -> content -> data', data);
+
+        data.forEach(element => {
+            content += '<img src="' + element + '"/>'
+        });
     }
 
 

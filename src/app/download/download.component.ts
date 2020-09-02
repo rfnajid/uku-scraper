@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CollectionWebService } from 'app/core/services/uku/web/collection.web.service';
-import { PaymentWebService } from 'app/core/services/uku/web/payment.web.service';
-import { TemplateService } from 'app/core/services/uku/util/template.service';
-import { FileService } from 'app/core/services/uku/util/file.service';
+import { FileService,TemplateService,CollectionWebService,PaymentWebService, ContactWebService } from 'app/core/services';
+import {  Collection, Payment, CollectionRecord, PaymentRecord, CollectionPath, Template } from 'app/core/model';
+import { PRODUCTS, DATA_CATEGORIES } from 'app/core/const/const';
+import { removeQueryParams } from 'app/core/const/util';
 
 @Component({
   selector: 'app-download',
@@ -16,14 +16,20 @@ export class DownloadComponent implements OnInit {
   done = false;
   message = "Lorem ipsum doleris sit amet";
 
-  dataSize;
+  casesSize: number = 100;
+  product: string = PRODUCTS[0];
+  category: string = DATA_CATEGORIES.COLLECTION;
+
+  cases: Collection[] | Payment[];
 
   constructor(
     private router: Router,
+    private fileService: FileService,
+    private templateService: TemplateService,
     private collectionWebService: CollectionWebService,
     private paymentWebService: PaymentWebService,
-    private templateService: TemplateService,
-    private fileService: FileService) {
+    private contactWebService: ContactWebService
+    ) {
   }
 
   ngOnInit(): void {
@@ -32,24 +38,54 @@ export class DownloadComponent implements OnInit {
 
   async download(){
 
-    const list = await this.collectionWebService.getContoh().toPromise();
+    if (this.category === DATA_CATEGORIES.COLLECTION){
+      this.cases = await (await this.collectionWebService.getAll(this.product).toPromise()).rows;
+    } else if(this.category === DATA_CATEGORIES.PAYMENT){
+      this.cases = await (await this.paymentWebService.getAll(this.product).toPromise()).rows;
+    } else {
+      return;
+    }
 
-    this.dataSize = list.length;
+    this.casesSize = this.cases.length;
 
-    this.fileService.mkdir('percobaan');
+    // BASE FOLDER
+    const baseFolder = 'UKU-Scraper ' + Date.now();
+    this.fileService.mkdir(baseFolder);
 
-    for(let i=0;i<this.dataSize;i++){
-      const path = 'percobaan/'+list[i].id+'-'+list[i].kata;
-      this.fileService.mkdir(path);
 
-      const html = this.templateService.get({'TES':list[i],"tes 2":list[i]});
+    for(let i=0;i<this.casesSize;i++){
+      let case_ : Collection | Payment = this.cases[i];
+      let customerId;
+      let caseId;
+      if(case_ instanceof Collection){
+        caseId = case_.orderId;
+        customerId = case_.customerId;
+      }
+      if(case_ instanceof Payment){
+        caseId = case_.caseId;
+        customerId = null;
+      }
 
-      await this.write(path + '/index.html', html);
+
+      const template = new Template();
+      template.case = case_;
+      template.detail = {'tes': 'tes'};
+      template.contacts = await (await this.contactWebService.getAll(this.product, customerId).toPromise()).rows;
+      template.collectionRecords = await this.collectionWebService.getRecords(this.product, caseId).toPromise();
+      template.pictures = removeQueryParams(await this.collectionWebService.getPictures(this.product, customerId).toPromise());
+      template.paymentRecords = await this.paymentWebService.getRecords(this.product, caseId).toPromise();
+      template.colelctionPaths = await this.collectionWebService.getPaths(caseId).toPromise();
+
+      const html = this.templateService.get(template);
+
+      const filePath = baseFolder + '/' + case_.customerName + '-' + caseId + '.html';
+      await this.write(filePath, html);
       this.calculateProgress(i+1);
-    };
+    }
 
     this.done = true;
   }
+
 
   async write(path: string, data:string){
     this.message = 'downloading... '+path;
@@ -59,11 +95,9 @@ export class DownloadComponent implements OnInit {
   }
 
   calculateProgress(current){
-    const percentage = current/this.dataSize * 100;
+    const percentage = current/this.casesSize * 100;
     this.progress = Math.floor(percentage+0.9) +'%';
   }
-
-
 
 }
 
