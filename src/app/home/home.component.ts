@@ -16,7 +16,8 @@ export class HomeComponent implements OnInit {
   dataCategories = DATA_CATEGORIES.data;
 
   product = this.products[0];
-  dataCategory = this.dataCategories[0].value;
+  category = this.dataCategories[0].value;
+  totalCase = 0;
   message = '';
 
   constructor(
@@ -40,13 +41,17 @@ export class HomeComponent implements OnInit {
   }
 
   download(){
-    this.router.navigate(['/download']);
+    console.log('Downloading '+ this.product +' - '+ this.category);
+    this.router.navigate(['/download'], { state: {
+      product: this.product,
+      category: this.category
+    } });
   }
 
   // bind related function
 
-  onChangeDataCategory(dataCategory){
-    this.dataCategory = dataCategory;
+  onChangeCategory(category){
+    this.category = category;
     this.getTotalCase();
   }
 
@@ -62,15 +67,16 @@ export class HomeComponent implements OnInit {
 
     let caseWebService: CaseWebService;
 
-    if (this.dataCategory === DATA_CATEGORIES.COLLECTION) {
+    if (this.category === DATA_CATEGORIES.COLLECTION) {
       caseWebService = this.collectionWebService;
-    } else if (this.dataCategory === DATA_CATEGORIES.PAYMENT){
+    } else if (this.category === DATA_CATEGORIES.PAYMENT){
       caseWebService = this.paymentWebService;
     } else {
       return;
     }
 
     caseWebService.getSample(this.product).subscribe(res => {
+      this.totalCase = res.total;
       this.setMessage(res.total + ' data found');
     });
   }

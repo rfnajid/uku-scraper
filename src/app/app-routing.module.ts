@@ -9,7 +9,7 @@ import { DownloadComponent } from './download/download.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'download',
+    redirectTo: 'page-login',
     pathMatch: 'full'
   },
   {

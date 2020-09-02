@@ -21,15 +21,14 @@ export class ScraperService {
         const customerId = this.getVariableFromScript(script, 'var v_customerId = ');
         const orderId = this.getVariableFromScript(script, 'var v_orderId = ');
 
-        payment.customerId = customerId.replace('"','');
-        payment.orderId = orderId.replace('"','');
+        payment.customerId = customerId.substring(1,customerId.length-1);
+        payment.orderId = orderId.substring(1, orderId.length-1);
         result.payment = payment;
 
         const detail = this.getVariableFromScript(script, 'var detailMap=');
         result.paymentDetail = JSON.parse(detail);
 
         console.log('scraperService', result);
-
 
         return result;
     }

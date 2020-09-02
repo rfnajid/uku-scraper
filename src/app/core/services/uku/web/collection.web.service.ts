@@ -15,24 +15,24 @@ export class CollectionWebService extends WebService implements CaseWebService{
 
 
   getRecordUrl(product: string, caseId: string): string {
-    // return this.BASE_URL + 'colRecord/' + caseId + '/' + product + '/listColRecordDODatas';
+    return this.BASE_URL + 'colRecord/' + caseId + '/' + product + '/listColRecordDODatas';
 
-    // mock
-    return 'https://run.mocky.io/v3/d57bf0e3-f85b-4ee8-9857-72fedf3ea136';
+    // // mock
+    // return 'https://run.mocky.io/v3/d57bf0e3-f85b-4ee8-9857-72fedf3ea136';
   }
 
   getPictureUrl(product: string, customerId: string): string{
-    // return this.BASE_URL + 'customerPicture/' + customerId + '/' + product + '/pictures';
+    return this.BASE_URL + 'customerPicture/' + customerId + '/' + product + '/pictures';
 
-    //mock
-    return 'https://run.mocky.io/v3/fe76e7d2-5959-46f1-8470-f048f4c586cc';
+    // //mock
+    // return 'https://run.mocky.io/v3/fe76e7d2-5959-46f1-8470-f048f4c586cc';
   }
 
   getPathUrl(caseId: string){
-    // return this.BASE_URL + 'colAllotTrack/' + caseId + '/listColAllotTrackDODatas';
+    return this.BASE_URL + 'colAllotTrack/' + caseId + '/listColAllotTrackDODatas';
 
     // // mock
-    return 'https://run.mocky.io/v3/3262b890-bd57-4a23-893a-c95ef3bcf358';
+    // return 'https://run.mocky.io/v3/3262b890-bd57-4a23-893a-c95ef3bcf358';
   }
 
   constructor(private http: HttpClient) {

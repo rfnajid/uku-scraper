@@ -17,9 +17,9 @@ export class ContactWebService extends WebService{
   }
 
   getContactUrl(product: string, customerId: string){
-    // return this.BASE_URL + 'colEmergencyContact/' + product + '/' + customerId + '/listEmergencyContact';
-    // mock
-    return 'https://run.mocky.io/v3/376cbcd6-7197-4ef1-b64d-f0992a14b204';
+    return this.BASE_URL + 'colEmergencyContact/' + product + '/' + customerId + '/listEmergencyContact';
+    // // mock
+    // return 'https://run.mocky.io/v3/376cbcd6-7197-4ef1-b64d-f0992a14b204';
   }
 
   getAll(product: string, customerId: string): Observable<ContactResponse>{

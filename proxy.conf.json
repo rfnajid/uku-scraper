@@ -19,7 +19,7 @@
         "target": "https://collection.ukuindo.com/",
         "secure": false
     },
-    "/colReplayFlow":{
+    "/colRepayFlow":{
         "target": "https://collection.ukuindo.com/",
         "secure": false
     },
@@ -31,7 +31,7 @@
         "target": "https://collection.ukuindo.com/",
         "secure": false
     },
-    "/paidOff": {
+    "/paidoff": {
         "target": "https://collection.ukuindo.com/",
         "secure": false
     },

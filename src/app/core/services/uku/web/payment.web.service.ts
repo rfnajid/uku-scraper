@@ -12,14 +12,14 @@ import { PaymentRecord } from 'app/core/model';
 
 export class PaymentWebService extends WebService implements CaseWebService{
 
-  // PAYMENT_URL = this.BASE_URL + 'paidoff/datas';
+  PAYMENT_URL = this.BASE_URL + 'paidoff/datas';
   //// mock url
-  PAYMENT_URL = 'https://run.mocky.io/v3/ac00a6ce-ad12-4819-be36-06db74adf4e4';
+  // PAYMENT_URL = 'https://run.mocky.io/v3/ac00a6ce-ad12-4819-be36-06db74adf4e4';
 
   getRecordUrl(product: string, caseId: string): string {
-    // return this.BASE_URL + 'colRepayFlow/' + caseId + '/listColRepayFlowDODatas';
+    return this.BASE_URL + 'colRepayFlow/' + caseId + '/listColRepayFlowDODatas';
     // mock
-    return 'https://run.mocky.io/v3/c03db519-4910-46f0-9363-fc812792603d';
+    // return 'https://run.mocky.io/v3/c03db519-4910-46f0-9363-fc812792603d';
   }
 
   constructor(private http: HttpClient) {
@@ -27,9 +27,9 @@ export class PaymentWebService extends WebService implements CaseWebService{
   }
 
   getDetailUrl(caseId: string, scheduleId: string): string{
-    // return this.BASE_URL + 'paidoff/' + caseId + '/' + scheduleId + '/paidOffDetail';
+    return this.BASE_URL + 'paidoff/' + caseId + '/' + scheduleId + '/paidOffDetail';
     // mock
-    return 'https://run.mocky.io/v3/fe7bb650-393a-4132-814e-460b3de28175';
+    // return 'https://run.mocky.io/v3/fe7bb650-393a-4132-814e-460b3de28175';
   }
 
   getSample(product: string): Observable<CollectionResponse>{

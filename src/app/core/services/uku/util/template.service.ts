@@ -92,7 +92,7 @@ export class TemplateService {
         console.log('template -> content -> title', title);
         console.log('template -> content -> data', data);
 
-        if(data.length<=0){
+        if(!data || data.length<=0){
             content += '<h5>No Data</h5>';
         }else {
             content += '<table class="table table-striped">';
@@ -122,7 +122,7 @@ export class TemplateService {
     private contentImages(title: string, data: String[]): string{
         let content = '<h3>'+ title + '</h3>';
 
-        if(data.length<=0){
+        if(!data || data.length<=0){
             content += '<h5>No Data</h5>';
         }else {
 

@@ -36,6 +36,10 @@ export class DownloadComponent implements OnInit {
     private contactWebService: ContactWebService,
     private scraperService: ScraperService
     ) {
+      if(this.router.getCurrentNavigation().extras.state){
+        this.product = this.router.getCurrentNavigation().extras.state.product;
+        this.category = this.router.getCurrentNavigation().extras.state.category;
+      }
   }
 
   ngOnInit(): void {
@@ -118,7 +122,7 @@ export class DownloadComponent implements OnInit {
 
   stepUp(i, step, message){
     this.message = message;
-    this.calculateProgress(i+1, step);
+    this.calculateProgress(i, step);
   }
 
 
@@ -130,7 +134,7 @@ export class DownloadComponent implements OnInit {
   }
 
   calculateProgress(current, step){
-    this.progress = step/this.totalStep * current/this.casesSize * 100;
+    this.progress = (step/this.totalStep + current)/this.casesSize * 100;
   }
 
   get progressText(): string{
