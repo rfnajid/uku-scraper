@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Login} from '../../../model/login.model';
-import { LoginResponse } from '../../../model/response/login.response.model';
 import { CollectionResponse} from '../../../model/response/collection.response.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { WebService } from './web.service';
 import { CaseWebService } from './case.web.service';
@@ -28,10 +26,10 @@ export class PaymentWebService extends WebService implements CaseWebService{
     super();
   }
 
-  getDetailUrl(caseId: bigint, scheduleId: number): string{
+  getDetailUrl(caseId: string, scheduleId: string): string{
     // return this.BASE_URL + 'paidoff/' + caseId + '/' + scheduleId + '/paidOffDetail';
     // mock
-    return 'https://run.mocky.io/v3/15c17851-3004-44b4-a576-3a7816f4ff88';
+    return 'https://run.mocky.io/v3/fe7bb650-393a-4132-814e-460b3de28175';
   }
 
   getSample(product: string): Observable<CollectionResponse>{
@@ -47,8 +45,8 @@ export class PaymentWebService extends WebService implements CaseWebService{
     return this.http.post<CollectionResponse>(this.PAYMENT_URL, body.toString(), this.formUrlOptions);
   }
 
-  getDetail(): Observable<any> {
-    throw new Error("Method not implemented.");
+  getDetail(caseId: string, scheduleId: string) {
+    return this.http.get(this.getDetailUrl(caseId, scheduleId), {responseType: 'text'});
   }
 
   getRecords(product: string, caseId: string): Observable<PaymentRecord[]>{

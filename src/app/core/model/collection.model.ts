@@ -1,6 +1,7 @@
 export class Collection {
     id: string;
     orderId: string;
+    caseId: string;
     orderNo: string;
     customerId: string;
     customerName: string;

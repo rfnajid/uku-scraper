@@ -66,19 +66,22 @@ export class TemplateService {
         return body;
     }
 
-    private contentObject(title: string, data:): string{
-        let content = '<h3>'+title+'</h3>';
+    private contentObject(title: string, data): string{
+        let content ='';
+        if(data){
+            content = '<h3>'+title+'</h3>';
 
-        console.log('template -> content -> title', title);
-        console.log('template -> content -> data', data);
+            console.log('template -> content -> title', title);
+            console.log('template -> content -> data', data);
 
-        content += '<div class="row">';
-        Object.entries(data).forEach(
-            ([key, value]) => {
-                content += '<div class="col-md-3 label">'+key+'</div>';
-                content += '<div class="col-md-3 value">'+value+'</div>';
-        });
-        content += '</div>';
+            content += '<div class="row">';
+            Object.entries(data).forEach(
+                ([key, value]) => {
+                    content += '<div class="col-md-3 label">'+key+'</div>';
+                    content += '<div class="col-md-3 value">'+value+'</div>';
+            });
+            content += '</div>';
+        }
 
       return content;
     }
@@ -116,15 +119,22 @@ export class TemplateService {
         return content;
     }
 
-    private contentImages(title: string, data: String[]){
+    private contentImages(title: string, data: String[]): string{
         let content = '<h3>'+ title + '</h3>';
 
-        console.log('template -> content -> title', title);
-        console.log('template -> content -> data', data);
+        if(data.length<=0){
+            content += '<h5>No Data</h5>';
+        }else {
 
-        data.forEach(element => {
-            content += '<img src="' + element + '"/>'
-        });
+            console.log('template -> content -> title', title);
+            console.log('template -> content -> data', data);
+
+            data.forEach(element => {
+                content += '<img src="' + element + '"/>'
+            });
+        }
+
+        return content
     }
 
 

@@ -16,3 +16,5 @@ export * from './payment.model';
 export * from './paymentDetail.model';
 export * from './paymentRecord.model';
 export * from './template.model';
+
+export * from './paymentDetailScrapResult.model';

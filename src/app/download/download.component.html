@@ -6,9 +6,9 @@
   <div class="progress-container" *ngIf="!done">
     <h3 class="progress-title">Downloading</h3>
     <div class="progress">
-      <div class="progress-bar progress-bar-striped progress-bar-animated" [style]="'width:'+progress"></div>
+      <div class="progress-bar progress-bar-striped progress-bar-animated" [style]="'width:'+progressText"></div>
     </div>
-    <h3 class="progress-label">{{progress}}</h3>
+    <h3 class="progress-label">{{progressText}}</h3>
     <h5>{{message}}</h5>
   </div>
 
